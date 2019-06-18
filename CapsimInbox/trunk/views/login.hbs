@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="html">
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='/capsiminbox/admin/stylesheets/build.css' />
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+
+        <h3>Login as:</h3>
+        <hr>
+        <form action="/capsiminbox/login" method="post">
+
+          <div>
+            <label class="radio-inline">
+              <input type="radio" checked name="type" value="Student"> Student
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="type" value="Professor"> Professor
+            </label>
+          </div>
+
+          <br>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" id="username" type="text" name="username" value="">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password" type="password" name="password" value="">
+          </div>
+
+          <div class="form-group">
+            <label for="simId">Sim ID</label>
+            <input class="form-control" id="simId" type="text" name="simId" value="">
+          </div>
+          {{#if error}}
+          <div class="alert alert-warning" role="alert">Invalid Login</div>
+          {{/if}}
+          <button class="btn btn-success" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

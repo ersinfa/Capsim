@@ -1,0 +1,150 @@
+<script>
+export default {
+    name: 'CapsimList',
+    props:['className', 'prefix',  'collection'],
+    data(){
+        return {
+            // counter:([...new Array(9).keys()].pop()),
+        }
+    },
+    computed: {
+        // counter(){
+        //     let counter =  1; 
+        //     Object.values(this.collection).forEach(list => {
+        //         counter += list.length; 
+        //     })
+        //     return ([...new Array(counter).keys()])
+        // },
+        // The digist cycle causes the counter interation to be called thousands of times
+        // Until another soultion can be thought of
+        mapper(){
+            let count = 0; 
+            const keys = Object.keys(this.collection); 
+            const map = {}; 
+            const test = Object.values(this.collection).forEach((list,index) => {
+                map[keys[index]] = list.map(item => {
+                    // Convert to map not object, later
+                    return { item:item, index:++count }
+                }); 
+            })
+            return map;
+        }
+    }
+}
+</script>
+<template>
+    <!-- <div :class="className">
+        <div class="list-group">
+            <a
+                class="list-group-item"
+                v-for="(item, index) in list" 
+                :key="item.id">
+                <p class="list-group-item-heading">
+                    {{prefix}} {{index}}
+                </p>
+            </a>
+        </div>
+    </div> -->
+    <div :class="className">
+        <template v-for="(list, key) in mapper">
+        <div class="list-group" :key="list.id">
+            <a class="list-group-item" >
+                {{key}} <small> Subject Area </small> 
+            </a>
+            <a
+                class="list-group-item"
+                v-for="item in list" 
+                :key="item.id">
+                <p class="list-group-item-heading">
+                    {{prefix}} {{ item.index }}
+                </p>
+            </a>
+        </div>
+        </template>
+    </div>
+
+</template>
+<style>
+    .CapsimList-group {
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+    .CapsimList-group-item{
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        margin-bottom: -1px;
+    }
+    .list-group-item-heading {
+        color: #a09999 !important;
+    }
+    .list-group-item{
+        background-color: #474747;
+        color: white !important;
+        font-size: large;
+    }
+</style>
+
+        mappedMessages(){
+            const messageMap = {}; 
+            const newArray = new Array(); 
+            let count = 0; 
+            const keys = Object.keys(this.groupedMessages); 
+            const test = Object.values(this.groupedMessages).forEach((list,index) => {
+                // messageMap[keys[index]] = list.map(item => {
+                //     // Convert to map not object, later
+                //     return {value : `Question : ${++count}`, key : item}
+                // }); 
+                // newArray.push(keys[index]); 
+                list.forEach(item => {
+                    // Convert to map not object, later
+                    let map = {}; 
+                    messageMap[`Question : ${++count}`] = item; 
+                    // newArray.push(map); 
+                }); 
+            })
+            return messageMap;
+        }, 
+        mappedMessages(){
+            const messageMap = {}; 
+            let count = 0; 
+            const keys = Object.keys(this.groupedMessages); 
+            const collection =   Object.values(this.groupedMessages); 
+            for (let i = 0; i < collection.length; i++) { 
+                messageMap[keys[i]] = {}; 
+                const list = collection[i]; 
+                for (let j = 0; j < list.length; j++) { 
+                    const item = list[j]; 
+                    messageMap[item.questionKey] = `Question : ${++count}`; 
+                }
+            }
+            return messageMap;
+        }, 
+
+        mappedMessages(){
+            const messageMap = {}; 
+            const newArray = new Array(); 
+            let count = 0; 
+            if(this.groupedMessages){
+                const keys = Object.keys(this.groupedMessages); 
+                let retVal = keys.reduce((item, key) => {
+                    console.log(item, key);
+                    item[key] = {}
+
+                    Object.keys(this.groupedMessages[key]).forEach( someKey => item[key][someKey] = this.groupedMessages[key][someKey] )
+
+                    return item; 
+                    
+                }, {})
+                console.log(retVal)
+            }
+            return messageMap;
+        }, 
+
+
+
+
+
+
+
+

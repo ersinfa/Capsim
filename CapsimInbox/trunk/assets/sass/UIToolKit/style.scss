@@ -1,0 +1,224 @@
+/* **********************************/
+/* *********** Typography ***********/
+/* **********************************/
+// h1,h2,h3,h4{text-align: center}
+.text-md{font-size:$ui-font-size-md;}
+.text-lg{font-size:$ui-font-size-lg;}
+
+
+/* *******************************/
+/* *********** GENERAL ***********/
+/* *******************************/
+
+body {
+  background-color: $ui-color-background-body;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+.spacing-right{
+  margin-right: 15px;
+}
+.spacing-left{
+  margin-left: 15px;
+}
+.spacing-top{
+  margin-top: 15px;
+}
+.spacing-bottom{
+  margin-bottom: 15px;
+}
+.spacing-right-lg{
+  margin-right: 30px;
+}
+.spacing-left-lg{
+  margin-left: 30px;
+}
+.spacing-top-lg{
+  margin-top: 30px;
+}
+.spacing-bottom-lg{
+  margin-bottom: 30px;
+}
+
+
+/* **********************/
+/* ******** Tables ******/
+/* **********************/
+.table{ > tbody, > thead{ > tr{ > td, > th{ vertical-align: middle;}}}}
+.table-borderless{ > tbody,> thead{ > tr{ > td, > th{ border: none; } } } }
+
+.table-with-totals{
+  tr{ 
+    td:last-child,
+    th:last-child{
+      background: $ui-color-totals;
+      text-align: center;
+      width: 17%;
+      font-weight: bold;
+    }
+    td.totals-dark,th.totals-dark{
+      background: $ui-color-totals-dark;
+    }
+    td.totals,th.totals{
+      background: $ui-color-totals;
+    }
+  }
+} 
+
+.table-centered{
+  table-layout: fixed;
+  td,th{
+    text-align: center;
+  }
+}
+
+.table-vertical{
+  table-layout: fixed;
+  tr{
+    td,th{
+      text-align: center;
+      &:first-child:not(.text-center){
+        text-align: left;
+      }
+    }
+  }
+}
+
+/* ********************************/
+/* ******** Navigation pills ******/
+/* ********************************/
+// .nav-tabs{
+//   li{
+//     a{
+//       color:#333;
+//       background-color: #dddddd;
+//       cursor: pointer;
+//       // font-size:$Text-md;
+//     }
+//   }
+//   li.active{
+//     a{
+//       font-weight: bold
+//     }
+//   }
+
+// }
+
+/* ******************************************************/
+/* ******** Sections and Subsections Sequences  *********/
+/* ******************************************************/
+body {
+  counter-reset: section ;
+}
+.subsection-counter-reset {
+  counter-reset: subsection;
+}
+.section-counter:before{
+  counter-increment: section;
+  content: counter(section);
+}
+.section-counter{
+  counter-reset: subsection;
+}
+.subsection-counter:before{
+  counter-increment: subsection;
+  content: counter(section) "." counter(subsection) " ";
+}
+
+
+
+
+
+
+.table-reports{
+    th, tr, td{
+      border: solid 1px black !important;
+    }
+    th {
+      background: #eee;
+      color: black;
+      text-align: center;
+    }
+    tr:nth-child(odd) td{
+      background:#fff;
+    }
+    tr:nth-child(even) td{
+      background:#eee ;
+    }
+    caption {
+      background: #0d73ae;
+      color: white;
+      text-align: center;
+    }
+    // caption {
+    //   width: 100%;
+    //   display:inline-block;
+    //   background: #0d73ae;
+    //   color: white;
+    //   text-align: center;
+    //   padding: 10px;
+    //   margin: 0;
+    //   font-size: 14px;
+    // }
+  }
+
+.table-courier-theme{
+    th{
+      padding: 4px;
+    }
+    tr, td{
+    // th, tr, td{
+      border: 0;
+      padding: 4px;
+    }
+    th {
+      background: #eee;
+      color: black;
+      text-align: center;
+    }
+    tr:nth-child(odd) td{
+      background:#fff;
+    }
+    tr:nth-child(even) td{
+      background:#eee ;
+    }
+    caption {
+      background: #0d73ae;
+      color: white;
+      text-align: center;
+    }
+  }
+
+.btn-info-dark-outline{
+  background-color: #ffffff;
+  border-color: #272727;
+}
+.btn-info-dark-outline:hover{
+    background-color: #272727;
+    border-color: #272727;
+    color: #ffffff; 
+}
+
+
+
+.nav-tabs li a {
+  color: #333;
+  background-color: #ddd;
+  cursor: pointer;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+.nav-tabs>li>a:hover {
+  border-color: #eee #eee #ddd;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  text-decoration: none;
+  background-color: #eee;
+}

@@ -1,0 +1,36 @@
+<div id="template-form" class="col-md-2 col-md-offset-5">
+    <h3>Create a course template</h3>
+    <div class="form-group">
+        <label for="templateName">Name</label>
+        <input type="text" class="form-control" id="templateName">
+    </div>
+    <br/>
+    <button  class="btn btn-success btn-small" onclick="courseTemplateCreation()">Submit</button>
+    <br>
+    <br>
+    <div style="display: none;" class="alert alert-success message" role="alert"></div>
+    <div style="display: none;" class="alert alert-danger error" role="alert"></div>
+</div>
+
+<script type="text/javascript">
+function courseTemplateCreation() {
+    var name = $('#templateName').val()
+    var data = {
+        courseTemplate: {{{ courseTemplate }}},
+        name: name
+    }
+    $.ajax({
+        url: "/capsiminbox/professor/save-course-template",
+        type: "POST",
+        data: {
+            data: JSON.stringify(data)
+        }
+    })
+    .done( function( response ){
+        $('.message').html('Template successfully created').show()
+    })
+    .fail( function(jqXHR, textStatus, errorThrown) {
+        $('.error').html('There was problem while processing your request. Please try again later').show()
+    })
+}
+</script>

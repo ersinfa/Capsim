@@ -1,0 +1,269 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+$exam-color: #383677 !important;
+$exam-color-border: #005580 !important;
+$exam-success-color: #108137 !important;
+$exam-success-color-border: #0b5b27 !important;
+$exam-background-color: #000 !important;
+$exam-default-color: #66757E !important;
+$exam-text-color: #B5B5B5 !important;
+$exam-color-white: #FFFFFF !important; 
+$exam-font-size: 14px !important; 
+$exam-padding-offset: 45px !important;
+
+.modx-root {
+    * {
+        font-family: 'Roboto', sans-serif;
+    }
+    // .btn.btn-primary.mat {
+    //     color: $exam-color-white;
+    //     background-color: $exam-color;
+    //     border-color: $exam-color-border;
+    //     font-weight: bold !important;
+    //     border-radius: 5px;
+    //     padding: 12px 20px 12px 20px;
+    // }
+    // .btn.btn-success.mat {
+    //     color: $exam-color-white;
+    //     background-color: $exam-success-color;
+    //     border-color: $exam-success-color-border;
+    //     border-radius: 5px;
+    //     padding: 12px 20px 12px 20px;
+    // }
+    /** MODX Navbar  **/
+    nav {
+        background-color: $exam-color;
+        min-width: 105px !important;
+        // min-height: 140px !important;
+        opacity: 1 !important;
+    }
+
+    // Time Remaining span
+    nav .mr-10 {
+        margin-right: 0px !important;
+        font-size: $exam-font-size;
+        // allign left 
+        // width: 70px !important;
+        // height:16px !important;
+    }
+
+    // Show/Hide Toggle
+    .vue-switcher {
+        position: relative;
+        display: inline-block;
+        padding-left: 15px;
+    }
+
+    // Header alignment   
+    div#navbar.navbar-collapse.collapse {
+        padding-top: 35px !important; 
+        padding-bottom: 35px !important; 
+    }
+
+    // Submit Exam Button
+    .mr-15.ml-15.btn.btn-default.mat.exit-inbox.navbar-btn{
+        background-color:#FFFFFF !important;
+        color: $exam-default-color;
+        box-shadow: 0px 2px 2px #000000 !important; 
+        // text-shadow: 0px 2px 2px #000000 !important; 
+        opacity: 1 !important;
+        font-size: $exam-font-size;
+    }
+    /** END **/
+
+
+    /** MODX  Webapp side nav  **/
+
+    // div.row.col-wrapper {
+    //     background-color: $exam-color-white;
+    // }
+
+    div.mail-view.p-15.col-md-10{
+        background-color: $exam-color-white;
+    }
+
+    div.left-nav.no-gutters {
+        background-color: #272727;
+        // min-width: 330px;
+    }
+
+    // Elements in side nav
+    // div.panels-container.mt-30 {
+    //     // margin-left:  95px !important; 
+    //     // margin-right: 95px !important; 
+    //     // max-width: 330px;
+    //     margin-left: 16px !important;
+    // }
+
+    #capsim-container hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #95989A !important;
+        margin: 1em 0;
+        width: 95%;
+    }
+    /** END **/
+
+    /** MODX student portal side nav  **/
+
+    /** END **/
+    .sidebar {
+        background-color: #272727;
+
+    }
+    /** MODX Top Container  **/
+
+    // div.capsim-wrapper {
+    //  border-bottom-color: #95989A;
+    //  border-bottom-style: solid;
+    //  border-width: 1px;
+    //  border-radius: 4px;
+    //  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    // }
+
+    // container headings
+    span.container-header {
+        // font-size: 24px !important; 
+        font-size: 22px !important; 
+        // font-size: 20px !important; 
+        // font-size: 160%;
+    }
+
+    #capsim-list.list-group li.rand div span {
+        font-size: 16px !important; 
+    }
+
+    #capsim-list {
+        list-style-type: none !important; 
+    }
+
+    .pull-mid {
+        float:right;
+        margin-right: 40px;
+    }
+
+    // containers 
+    .container-row {
+        margin-left: -15px;
+        margin-right: -15px;
+        padding-top: 10px;
+        font-size: $exam-font-size;
+        padding-left: $exam-padding-offset;
+        // padding-bottom: 2px !important;
+        font-weight: bold !important;
+    }
+    .container-row a {
+        color:$exam-color-white;
+        text-decoration: underline;
+        // padding-bottom: 100px !important;
+        // padding: 5px 5px;
+    }
+
+    // // Questions remaining subject areas 
+    // li.rand {
+    //     font-size: 14px !important; 
+    //     padding-left: 61px !important; 
+    //     padding-bottom: 2px !important; 
+    //     font-weight: bold;
+    // } 
+
+    /** END **/
+
+
+    /** MODX Question Container **/
+    #capsim-question-list div.list-group{
+        margin-bottom:0px;
+    }
+
+    a.list-group-item.subject-area {
+        font-size: 20px !important; 
+        font-weight: bold;
+        color: $exam-color-white;
+        // max-height: 38px;
+    }
+
+    .left-nav.panels-container.list-group-item {
+        border: none!important;
+        box-shadow: none!important;
+        background: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+
+    a.list-group-item {
+        color: $exam-text-color; 
+
+    }
+
+    a.list-group-item.active {
+        background: $exam-color;
+    }
+
+    p.list-group-item-heading {
+        padding-left: $exam-padding-offset; 
+        margin-bottom: 1px !important; 
+
+    }
+    /** END **/
+
+    /** MODX Bottom Container  **/
+    .container-row p, a {
+        // color:$exam-text-color ; 
+        font-size: 18px !important;
+        padding-bottom: 10px;
+        font-family: 'Roboto', sans-serif;
+    }
+    /** END **/
+
+    /** MODX Question View Component  **/
+    div.mail-view.p-15.col-md-9{
+        // padding-left: 300px !important;
+        padding-left: 150px !important;
+        padding-right: 150px !important;
+        background-color: #FFFFFF !important;
+    }
+
+    div.email.p-15 {
+        box-shadow: 0 0 0px #FFFFFF !important;
+    }
+
+    div.row.pl-20.pr-20.pb-20 hr {
+        display: none;
+    }
+
+    // .btn.btn-default.pull-right.mat{
+    //     background-color:#108137;
+    //     color: #FFFFFF !important;
+    //     font-weight: bold !important;
+    //     font-size: $exam-font-size;
+    //     border-radius: 5px;
+    //     padding: 12px 20px 12px 20px;
+    // }
+
+    div.col-md-105 div.radio label {
+        color:black
+    }
+
+
+    // div.col-md-12.well.questions.mb-0 {
+    //     // background-color:$exam-response ;
+    // }
+
+    // div.col-md-12.pl-20.pr-20.mb-20 {
+    //     // text-align: center;
+    // }
+
+    // h2.m-10.text-light {
+    //     // font-size: 18px !important;
+    // }
+
+    .col-md-105 .radio {
+        padding-bottom: 5px !important;
+        padding-top: 5px !important;
+        color:$exam-default-color;
+    }
+    /** END **/
+}

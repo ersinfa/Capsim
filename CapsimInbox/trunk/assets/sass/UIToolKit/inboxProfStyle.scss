@@ -1,0 +1,111 @@
+.inbox-professor-portal, .modx-root{ 
+    .btn {
+        .glyphicon {
+            top: 2px;
+        }
+        color: black;
+        border-radius: 3px;
+        border-width: 1.5px;
+    }
+    .btn-default-active {
+        background-color: #CFCFCF;
+    }
+    .btn-default-outline {
+        background-color: #ffffff;
+        border-color: #afafaf;
+    }
+    .btn-default-outline:hover, .btn-default-active:hover {
+        background-color: #AFAFAF;
+    }
+    .btn-info-dark{
+        background-color: #474747;
+        border-color: #474747;
+        color: #ffffff;
+    }
+    .btn-info-dark:hover{
+        color: #ffffff;
+        background-color: #272727;
+        border-color: #272727;
+    }
+    .csv-valign{
+        margin-top: 20px;
+    }
+    .skills-valign{
+        margin-top: 28px;
+    }
+    .btn-primary {
+        background-color: #0073AD;
+        border-color: #0073AD;
+        color: #ffffff
+    }
+    a.white{
+        color: #ffffff;
+    }
+    .btn-primary:hover {
+        background-color: #006090;
+        border-color: #006090;
+    }
+    .btn-danger-outline {
+        background-color: #ffffff;
+        border-color: #c20611;
+        color: black;
+    }
+    .btn-danger-outline:hover{
+        background-color: #c20611;
+    }
+    .margin-right{
+        margin-right: 15px;
+    }
+    .nav-btn {
+        margin: 15px;
+        float: right;
+        button {
+            .glyphicon {
+                top: 2px;
+            }
+            color: black;
+            font-weight: 600;
+            border-radius: 3px;
+            border-width: 1.5px;
+        }
+        .btn-default-active {
+            background-color: #CFCFCF;
+        }
+        .btn-default-outline {
+            background-color: #ffffff;
+            border-color: #afafaf;
+        }
+        .btn-default-outline:hover, .btn-default-active:hover {
+            background-color: #AFAFAF;
+        }
+
+    }
+    .btn-info-light{
+        background-color: #CFCFCF;
+        border-color: #AFAFAF;
+        color: #000000;
+    }
+    .btn-info-light:hover{
+        background-color: #AFAFAF ;
+        border-color: #272727;
+    }
+}
+// Fixing styles for modex, needs refactoring
+.modx-root{ 
+    .btn-success{
+        color: #fff;
+    }
+    .btn-primary-outline {
+        background-color: #ffffff;
+        // border-color: #006090;
+        border: 2px solid #006090 !important;
+        color: black;
+    }
+    .btn-primary-outline:hover{
+        background-color: #006090;
+        color: #fff;
+    }
+    .btn-link{
+        color: #337ab7;
+    }
+}

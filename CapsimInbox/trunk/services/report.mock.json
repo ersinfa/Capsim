@@ -1,0 +1,28 @@
+{
+    "incomeStatement": {
+        "totalSales": 83718289.81986304,
+        "totalVariableCosts": 65114225.41544903,
+        "totalPeriodCosts": 9302032.202207003,
+        "totalOtherCosts": 558121.9321324202,
+        "totalInterestCosts": 232550.80505517512,
+        "totalContributionMargin": 18604064.404414006,
+        "totalNetMargin": 9302032.202207003,
+        "ebit": 8743910.270074582,
+        "tax": 2978975.812756792,
+        "profitSharingCost": 110647.6730452523,
+        "netProfit": 5421735.979217363
+    },
+    "cashFlow": {
+        "startingCash": 1781933.195420036,
+        "netCashFromOperations": 445483.298855009,
+        "netCashFromInvesting": -801869.9379390163,
+        "netCashFromFinancing": 1069159.9172520216,
+        "endingCash": 2494706.4735880503,
+        "netChangeInCash": 712773.2781680144
+    },
+    "balanceSheet": {
+        "totalAssets": 4649672.374520428,
+        "totalLiabilities": 1859868.949808171,
+        "totalEquity": 2789803.4247122565
+    }
+}

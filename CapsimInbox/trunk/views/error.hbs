@@ -1,0 +1,27 @@
+{{#if data.showSend }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center" style="margin-top: 50px;">
+            <h3>There was an error processing your request</h3>
+            <hr>
+            <a class="btn btn-primary" href="/capsiminbox/send-support">Send Support Email</a>
+        </div>
+    </div>
+
+{{ else }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Error Information</h1>
+            <b>Host:</b> {{ data.host }}
+            <br>
+            <b>Message:</b> {{ data.message }}
+            <br>
+            <b>Referer:</b> {{ data.referer }}
+            <br>
+            <b>Browser:</b> {{ data.browser }}
+            <br>
+            <b>Timestamp:</b> {{ data.timestamp }}
+            <br>
+            <b>Stack:</b> <br> <pre>{{ data.stack }}</pre>
+        </div>
+    </div>
+{{/if }}

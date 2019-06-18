@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="html">
+<head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href="file:///{{{ css }}}" />
+    <style media="print">
+    html {
+        zoom: 1.1;
+    }
+    .mt-20 {
+        margin-top: 20px;
+    }
+    .mt-100 {
+        margin-top: 100px;
+    }
+
+    .mt-150 {
+        margin-top: 150px;
+    }
+
+    .mt-200 {
+        margin-top: 200px;
+    }
+
+    .mt-250 {
+        margin-top: 250px;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    h2, h3, h4, h5 {
+        font-weight: bold;
+    }
+
+     th, td {
+        border: 1px solid #9b9b9b;
+        vertical-align: middle !important;
+    }
+
+    </style>
+
+</head>
+<body>
+    <img style="display: none;" src="{{ logoPath }}">
+
+    <div class="container-fluid">
+      <br/>
+        <div class="col-md-12 text-center">
+            <h1><b>Exam Score</b></h1>
+        </div>
+
+        <div class="row mt-250" >
+            <div class="col-md-12 text-center">
+                <h3><b>{{ data.firstname }} {{ data.lastname }}</b></h3>
+                <h3><b>{{ datePrinted }}</b></h3>
+            </div>
+        </div>
+
+        <div class="row mt-100 text-center"  style="page-break-after: always">
+            <h2><strong>Overall Score: {{overallScore}}%</strong></h2>
+        </div>
+
+        {{#each competencies as |competency|}}
+          <div style="page-break-after: always;"><br/>
+            <h3>{{competency.competencyName}} Score: {{competency.score}}%</h3>
+            <table class="table">
+              <tr>
+                  <th>Score</th>        
+                  <th>Learning Objectives</th>        
+                </tr>
+              {{#each competency.skills as |skill|}}
+                <tr>
+                  <td class="text-center"> {{skill.score}}%</td>
+                  <td>
+                    {{skill.name}}<br/>
+                    <b>Recommended Resource:</b> {{{skill.devTactic}}}
+                  </td>
+                  
+                </tr>
+              {{/each}}
+            </table>
+          </div>
+        {{/each}}
+
+    </div>
+</body>
+</html>

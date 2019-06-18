@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="html">
+<head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/CapsimInbox/stylesheets/build.student.css' />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Send Report Data</h1>
+                <form class="col-md-6" action="/capsiminbox/admin/reports/send-report" method="post">
+                    {{#if errorMessage}}
+                        <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+                    {{/if}}
+                    {{#if successMessage}}
+                        <div class="alert alert-success" role="alert">{{ successMessage }}</div>
+                    {{/if}}
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" id="email" type="text" name="email" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="version">Version</label>
+                        <select id="version" class="form-control" name="version">
+                            {{#each versions}}
+                                <option value="{{ versionKey }}">{{ versionName }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="report">Report</label>
+                        <select id="report" class="form-control" name="report">
+                            <option value="buildScoreAll">All Scores</option>
+                            <option value="getTimeBuckets">Time Buckets</option>
+                            <option value="itemLevelData">Item Level Data</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

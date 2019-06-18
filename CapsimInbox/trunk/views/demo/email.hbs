@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="html">
+<head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/capsiminbox/stylesheets/build.demo.css' />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <li class="list-group-item"> <b>First Name:</b> {{ data.firstname }}</li>
+                    <li class="list-group-item"> <b>Last Name:</b> {{ data.lastname }}</li>
+                    <li class="list-group-item"> <b>Email:</b> {{ data.email }}</li>
+                    <li class="list-group-item"> <b>Organization:</b> {{ data.school }}</li>
+                    <li class="list-group-item"> <b>Version Name:</b> {{ data.versionName }}</li>
+                    <li class="list-group-item"> <b>What is your first reaction to CapsimInbox:</b> {{ data.demoRate1 }}</li>
+                    <li class="list-group-item"> <b>How would you rate the usefulness of CapsimInbox?</b> {{ data.demoRate2 }}</li>
+                    <li class="list-group-item"> <b>How important is soft skill development to your program?</b> {{ data.demoRate3 }}</li>
+                    <li class="list-group-item"> <b>How likely would you be to use CapsimInbox in your own program?</b> {{ data.demoRate4 }}</li>
+                    <li class="list-group-item"> <b>How likely is it that you would recommend CapsimInbox to a colleague?</b> {{ data.demoRate5 }}</li>
+                    <li class="list-group-item"> <b>What are the things that you like most about CapsimInbox?</b> {{ data.comments1 }}</li>
+                    <li class="list-group-item"> <b>What are the things that you would most like to improve in CapsimInbox?</b> {{ data.comments2 }}</li>
+                    <li class="list-group-item"> <b>Wants Full Demo:</b> {{ data.fullDemo }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

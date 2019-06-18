@@ -1,0 +1,20 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules":true,
+            "arrowFunctions":true,
+            "classes":true
+        }
+    },
+    "rules": {
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "commonjs": false
+    }
+}

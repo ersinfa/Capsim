@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="html">
+  <head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/CapsimInbox/stylesheets/build.studentportal.css' />
+    <!-- Global site tag (gtag.js) - Google Ads: 1072658540 --> 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1072658540"></script> 
+    <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-1072658540'); </script> 
+    <!-- Event snippet for CapsimInbox: Time Management Purchase conversion page --> 
+    <script>
+      gtag('event', 'conversion', { 'send_to': 'AW-1072658540/Bx4_CP-WkJcBEOzwvf8D', 'transaction_id': '' });
+    </script> 
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '355149821752200'); 
+      fbq('track', 'PageView');
+      fbq('track', 'Purchase', {value: 4.99, currency: 'USD'});
+      }
+    </script>
+    <noscript>
+      <img height="1" width="1" 
+      src="https://www.facebook.com/tr?id=355149821752200&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+  </head>
+  <body>
+    <div id="app"></div>
+   <script type="text/javascript">
+      window.data={{{ data }}};
+    </script>
+  <script src="/CapsimInbox/javascripts/build.studentportal.js" charset="utf-8"></script>
+  </body>
+</html>

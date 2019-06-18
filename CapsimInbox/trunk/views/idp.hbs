@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="html">
+<head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href="file:///{{{ css }}}" />
+    <style media="print">
+    html {
+        zoom: 1.1;
+    }
+
+    p, ul, li {
+        font-size: 1.5rem !important;
+    }
+
+    .mt-100 {
+        margin-top: 100px;
+    }
+
+    .mt-150 {
+        margin-top: 150px;
+    }
+
+    .mt-200 {
+        margin-top: 200px;
+    }
+
+    .mt-250 {
+        margin-top: 250px;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    h2, h3, h4, h5 {
+        font-weight: bold;
+    }
+
+    th {
+        height: 50px !important;
+        font-size: 16px;
+        color: #ffffff !important;
+        vertical-align: middle !important;
+        font-weight: bold;
+        border: 1px solid #9b9b9b;
+        text-align: center;
+        background-color: #003f54 !important
+    }
+
+    th, td {
+        border: 1px solid #9b9b9b;
+        vertical-align: middle !important;
+        text-align: center;
+    }
+
+    .skill-table th:first-of-type, .skill-table td:first-of-type {
+        text-align: left;
+    }
+
+    .skill-table td:not(:first-of-type) {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .skill-table tr:last-of-type td {
+        background-color: #cecece !important;
+    }
+
+    </style>
+
+</head>
+<body>
+    <img style="display: none;" src="{{ logoPath }}">
+
+    <div class="container-fluid">
+
+        <!-- First page -->
+
+        <div class="mt-50"> <br> </div>
+
+        <div class="row mt-20">
+            <div class="col-md-12 text-center">
+                <h1><b>Individual Development Plan</b></h1>
+            </div>
+        </div>
+
+        <div class="row mt-250" style="page-break-after: always">
+            <div class="col-md-12 text-center">
+                <h3><b>{{ data.firstname }} {{ data.lastname }}</b></h3>
+                <h3><b>{{ datePrinted }}</b></h3>
+            </div>
+        </div>
+
+        <!-- First Page End -->
+
+
+        <!-- Second Page -->
+
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Overview</h4>
+                <p class="lead">
+                    Career success is based on the well-founded notion that obtaining skill-based feedback is an essential step
+                    toward professional development. CapsimInbox is designed to give you specific feedback on the key skills that
+                    drive immediate employability and facilitate your long-term promotability. Your individual development plan is the
+                    critical first step toward self-improvement.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>The Value of CapsimInbox</h4>
+                <p class="lead">
+                    The value of this assessment derives from two factors. First, CapsimInbox gives you a context to take a serious
+                    look at your current levels of skill. Second, CapsimInbox provides objective feedback that is based on a validated
+                    assessment process. It is important to remember that people are rarely accurate judges of their own personal
+                    strengths and challenges. A key reason for this inaccuracy is that objective feedback, such as the feedback provided
+                    by CapsimInbox, is often difficult to obtain.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <div class="row" style="page-break-after: always">
+            <div class="col-md-12">
+                <h4>Keys to Successful Personal Development</h4>
+                <p class="lead">
+                    Learning how to make skill improvements is a critical skill in its own right, and it’s important for professionals at
+                    all career stages. To truly master a skill requires both knowledge (knowing about) and application (knowing how).
+                    To improve the skills assessed in CapsimInbox you will need to learn about what the skills look like when effectively
+                    performed. You will also need to frequently and consistently practice these skills, which will often involve
+                    trial and error. It sometimes can be a frustrating process, but if you stick with it, you can improve. Research suggests
+                    five steps to guide you on the path to development:
+                </p>
+
+                <br>
+                <p>
+                    <b>1. Observe Your Current Skill Level:</b> Observe and collect information about the specific behaviors you have targeted
+                    for change. Completing CapsimInbox is a great first start!
+                </p>
+                <p>
+                    <b>2. Set a Specific Goal:</b> Determine how much you need to improve and focus on one key behavior or skill at a time.
+                    Avoid trying to do too many things at once.
+                </p>
+                <p>
+                    <b>3. Learn About the Skill:</b> Seek out information to better understand the skill you want to improve. Find challenging
+                    situations where you will be forced to learn and practice your targeted skill.
+                </p>
+                <p>
+                    <b>4. Practice and Seek Feedback:</b> Actually practice the new behavior during all available opportunities and seek as
+                    much feedback as possible to track your success.
+                </p>
+                <p>
+                    <b>5. Reward Yourself:</b> Provide yourself with rewards that you find valuable and are directly linked to performing the
+                    desired behavior.
+                </p>
+
+                <h2>Individual Development Plan Structure</h2>
+                <p>
+                    The following pages document your responses from completing the IDP Builder on the skill you chose to improve.
+                    This process spanned three steps: 1) Reflect; 2) Set Goal; and, 3) Create Plan.
+                    <br>
+                    Also provided is the entire developmental tactic for the specific skill you selected for improvement.
+                </p>
+            </div>
+        </div>
+
+        <!-- Second Page End -->
+
+
+        <!-- Third Page -->
+
+        <div class="row" style="page-break-after: always">
+            <div class="col-md-12">
+
+                <table class="table skill-table">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #003f54 !important; width: 60%">Skill</th>
+                            <th style="background-color: #003f54 !important; width: 20%">Skill Score</th>
+                            <th style="background-color: #003f54 !important; width: 20%">Development Need</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h4> {{ goal.name }} </h4>
+                                <p>
+                                    {{ goal.description }}
+                                </p>
+                            </td>
+                            <td>{{ goal.score }}</td>
+                            <td>{{ goal.needDev }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <b>More Info?</b> See the Developmental Tactics section at the back of this report.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <h2 style="color: #003f54 !important">1. Reflect</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th >Career</th>
+                            <th>Life</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%">
+                                <b>Describe 2-3 reasons why this skill is relevant to your career.</b>
+                                {{#each goal.reflect.inputs1}}
+                                {{#if this.text}}
+                                <p>{{ this.text }}</p>
+                                {{/if}}
+                                {{/each}}
+                            </td>
+                            <td style="width: 50%">
+                                <b>Describe 2-3 situations where you might use this skill in your life, school, job, or anywhere else.</b>
+                                {{#each goal.reflect.inputs2}}
+                                {{#if this.text}}
+                                <p>{{ this.text }}</p>
+                                {{/if}}
+                                {{/each}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <h2 style="color: #003f54 !important">2. Set Goal</h2>
+                <p class="lead text-center" style="font-size: 26px !important; width: 90%; margin-left: auto; margin-right: auto">
+                    "I will improve my {{ goal.name }} by {{ goal.goal.accomplishPercentage }} no later than {{ goal.goal.accomplishDate }} as evaluated by
+                    {{#each goal.goal.evaluate}}
+                    {{ this }}
+                    {{#unless @last}},
+                    {{/unless}}
+                    {{/each}}."
+                </p>
+
+                <br>
+                <h2 style="color: #003f54 !important">3. Create Plan</h2>
+
+                {{#each goal.plan.steps}}
+                <table class="table">
+                    <tr>
+                        <td style="font-size: 20px; text-align: left"><b>Step {{inc @index}}:</b> {{ this.action }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 20px; text-align: left"><b>Date:</b> {{ this.date }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 20px; text-align: left"><b>Resources Needed:</b> {{ this.resources }}</td>
+                    </tr>
+                </table>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2><b>Developmental Tactics</b></h2>
+                <h3><b>{{ goal.name }}</b></h3>
+                {{{ goal.devTactic }}}
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
