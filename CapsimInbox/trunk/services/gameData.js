@@ -151,7 +151,7 @@ module.exports = Object.assign( GameData.prototype, {
         .innerJoin('inbox_answerType AS at', 'at.answerTypeKey', 'a.FK_answerTypeKey')
 		.where( {'sta.FK_studentToSimKey': FK_studentToSimKey, 'sta.historyKey':0 } )
     },
-    getWrittenAnswers( FK_studentToSimKey ){
+    getWrittenAnswers( FK_studentToSimKey ){ 
         return db('CapsimInbox')
         .select()
 		.from('inbox_studentToAnswerWritten AS staw')
@@ -163,6 +163,20 @@ module.exports = Object.assign( GameData.prototype, {
 		.from('inbox_studentToAnswerWritten AS staw')
         .where({"FK_StudentToSimKey":FK_StudentToSimKey, "FK_questionKey":FK_questionKey })
     },
+    getWrittenDrafts( FK_StudentToSimKey, FK_questionKey ){
+        return db('CapsimInbox')
+        .select()
+		.from('inbox_studentToAnswerDraft AS staw')
+        .where({"FK_StudentToSimKey":FK_StudentToSimKey})
+    },
+    
+    getWrittenDraft( FK_StudentToSimKey, FK_questionKey ){
+        return db('CapsimInbox')
+        .select()
+		.from('inbox_studentToAnswerDraft AS staw')
+        .where({"FK_StudentToSimKey":FK_StudentToSimKey, "FK_questionKey":FK_questionKey })
+    },
+    
     
     getAnswers(FK_versionKey) {
         try {
@@ -208,7 +222,7 @@ module.exports = Object.assign( GameData.prototype, {
     },
 
     async getSimulationData(versionKey, stsKey, isExam) {
-        return Promise.all([this.getParallelQuestions(versionKey, isExam, stsKey), this.getAnswers(versionKey), this.getFiles(versionKey), this.getFolders(versionKey), this.getQuestionFiles(versionKey), this.getStudentAnswers(stsKey), this.getWrittenAnswers(stsKey), this.getDependencies(versionKey), this.getStudentLogEntries(stsKey, [2, 3, 10, 13])])    
+        return Promise.all([this.getParallelQuestions(versionKey, isExam, stsKey), this.getAnswers(versionKey), this.getFiles(versionKey), this.getFolders(versionKey), this.getQuestionFiles(versionKey), this.getStudentAnswers(stsKey), this.getWrittenAnswers(stsKey), this.getWrittenDrafts(stsKey), this.getDependencies(versionKey), this.getStudentLogEntries(stsKey, [2, 3, 10, 13])])    
     },
 
     async getVersionData(stsKey) {
@@ -220,7 +234,7 @@ module.exports = Object.assign( GameData.prototype, {
         .first();
     },
 
-    formatEmails([questions, answers, files, folders, questionFiles, studentAnswers, writtenAnswers, dependencies, answerLog], version, cycle, isReEntry) {
+    formatEmails([questions, answers, files, folders, questionFiles, studentAnswers, writtenAnswers, writtenDrafts, dependencies, answerLog], version, cycle, isReEntry) {
         for(let i = 0; i < questions.length; i++ ){
             questions[i].files = questionFiles.filter(function(questionFile){ return questionFile.FK_questionKey == questions[i].questionKey })
           
@@ -254,6 +268,13 @@ module.exports = Object.assign( GameData.prototype, {
                     // currentEmail.writtenResponse is used on front end
                     questions[i].writtenResponse = ""
                     questions[i].writtenResponse = writtenAnswer.writtenResponse; 
+                }
+            });  
+            writtenDrafts.forEach(function(writtenDraft){   
+                if(writtenDraft.FK_questionKey == questions[i].questionKey) {  
+                    // currentEmail.writtenResponse is used on front end
+                    questions[i].writtenDraftResponse = ""
+                    questions[i].writtenDraftResponse = writtenDraft.writtenResponse; 
                 }
             });  
             questions[i].isSent = isSent
@@ -426,6 +447,25 @@ module.exports = Object.assign( GameData.prototype, {
             writtenResponse
         })
         .into('inbox_studentToAnswerWritten')
+    }, 
+    
+    setWrittenDraft( {FK_StudentToSimKey, FK_questionKey, writtenResponse} ) {
+        return db('CapsimInbox').insert({
+            FK_StudentToSimKey,
+            FK_questionKey,
+            writtenResponse
+        })
+        .into('inbox_studentToAnswerDraft')
+    }, 
+    
+    updateWrittenDraft( {FK_StudentToSimKey, FK_questionKey, writtenResponse} ) {
+        return db('CapsimInbox')
+            .table('inbox_studentToAnswerDraft')
+            .where({
+                'FK_StudentToSimKey':FK_StudentToSimKey,
+                'FK_questionKey':FK_questionKey
+            })
+            .update({'writtenResponse':writtenResponse})
     }, 
 
     updateEmail ([ old_studentToSimKey, old_questionKey, old_answerKey ], [ FK_answerKey ]) {

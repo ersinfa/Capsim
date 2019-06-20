@@ -25,7 +25,7 @@ const handleCommonErrors = (err, req, res) => {
         return res.status(400).send(err)
     }
 
-    req.session.error = errorDetails
+    //req.session.error = errorDetails
 
     let error = {
         data: errorDetails,

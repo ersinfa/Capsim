@@ -90,7 +90,8 @@
                         <!-- Written Response question -->
                         <template v-else-if="isWrittenResponse">
                           <!-- <textarea v-model="writtenResponse" type="text" placeholder="Enter your response here" class='emailMsgAnswer'></textarea> -->
-                          <wysiwyg id="written-response" v-model="writtenResponse" class='emailMsgAnswer'></wysiwyg>
+                          <wysiwyg id="written-response" v-model="writtenResponse" 
+                           v-on:content-updated="saveDraft" :value="draftValue" class='emailMsgAnswer'>TEST message</wysiwyg>
                         </template>
                        
                         <template v-if="isSent && answerPicked">
@@ -98,7 +99,8 @@
                         </template>
                       </div>
 
-                      <div class="col-md-12">
+                      <div class="col-md-12" style="margin-top: 10px" >
+
                         <button @click="submitAnswer" class="btn btn-primary mat pull-right"  >
                             <template v-if="$store.state.assessmentTypeKey == 3">
                                 Respond    
@@ -106,8 +108,10 @@
                             <template v-else>
                                 {{ info.respond }}
                             </template>
-                            
-                            
+                        </button> 
+                        
+                        <button  @click="saveDraft" class="btn btn-default mat pull-right" id="save-draft" style="margin-right: 10px;"  > 
+                            Save Draft
                         </button>
                       </div>
                     </template>
@@ -123,8 +127,9 @@
         <div class="empty"></div>
         
     </div>
-</template>
+</template> 
 <script>
+
 export default {
   name: "mailView",
 
@@ -143,6 +148,7 @@ export default {
       isChatOpen: false,
       errorMessage: "Please pick an answer.",
       writtenResponse: "",
+      draftValue: "",
       smartAnswer: null
     };
   },
@@ -195,6 +201,7 @@ export default {
     },
 
     emailHeight() {
+      
       if (this.currentEmail) {
         if (this.isExam) {
           return `${this.windowHeight - 200}px`;
@@ -202,6 +209,8 @@ export default {
           return `${this.$refs.container.offsetHeight - 30}px`;
         }
       }
+      
+     //return '1000px';
     },
 
     answersToShow(){
@@ -217,6 +226,9 @@ export default {
     },
 
     isWrittenResponse() {
+      if(this.currentEmail.isWrittenResponse == 1){
+       this.writtenResponse = this.getDraftData();
+      }
       return this.currentEmail.isWrittenResponse == 1;
     },
 
@@ -281,6 +293,26 @@ export default {
   },
 
   methods: {
+    saveDraft(){
+      const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
+      question.writtenResponse = this.writtenResponse;
+      return this.$store.dispatch("email/ANSWER_EMAIL_SAVE_DRAFT", {
+          questionkey: this.currentEmail.questionKey,
+          writtenResponse: this.writtenResponse
+      })
+      console.log('Draft saved..');
+    },
+    getDraftData(){
+      /*
+      let payload = { questionkey: this.currentEmail.questionKey }
+      $.post({ url: '/capsiminbox/webapp/get_savedraft', dataType: 'json', data: payload })
+      .then( (data) => {
+        console.log(data);
+      });
+      */
+      const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
+      return question.writtenResponse;
+    },
     clickPrevious() {
       $(`#questionListTable tr:nth-child(${this.$store.state.selectedQuestionID - 1})`).click();
     },
@@ -315,7 +347,7 @@ export default {
           }
         }
       }
-      this.writtenResponse = "";
+      //this.writtenResponse = "";
       this.initial = true;
       this.showError = false;
       this.smartAnswer = null;

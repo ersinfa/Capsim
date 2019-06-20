@@ -19,12 +19,18 @@ module.exports = (database) => {
         },
         pool: {
             min: 0,
-            max: 10,
+            //max: 10,
+            max: 1000,
+            //idleTimeoutMillis: 50000,
+            //softIdleTimeoutMillis: 20000,
+            //evictionRunIntervalMillis: 5000,
+            //reapIntervalMillis: 10000,
+            //createRetryIntervalMillis: 5000
             idleTimeoutMillis: 5000,
-            softIdleTimeoutMillis: 2000,
-            evictionRunIntervalMillis: 500,
             acquireTimeoutMillis: 30000,
             createTimeoutMillis: 30000,
+            softIdleTimeoutMillis: 2000,
+            evictionRunIntervalMillis: 500,
             reapIntervalMillis: 1000,
             createRetryIntervalMillis: 500
         },

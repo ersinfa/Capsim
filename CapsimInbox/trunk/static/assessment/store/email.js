@@ -84,6 +84,30 @@ module.exports = {
             }
         },
 
+        GET_SAVED_DRAFT: ({ commit }, { questionkey }) => {
+            return new Promise(function(resolve, reject) {
+                let payload = { questionkey }
+                $.post({ url: '/capsiminbox/webapp/get_savedraft', dataType: 'json', data: payload })
+                .then( () => {
+                    commit('GET_SAVED_DRAFT', payload)
+                    resolve()
+                })
+                .catch( err => reject(err) )
+            })
+        },
+
+        ANSWER_EMAIL_SAVE_DRAFT: ({ commit }, { questionkey, writtenResponse }) => {
+            return new Promise(function(resolve, reject) {
+                let payload = { questionkey, writtenResponse }
+                $.post({ url: '/capsiminbox/webapp/savedraft', dataType: 'json', data: payload })
+                .then( () => {
+                    commit('ANSWER_EMAIL_SAVE_DRAFT', payload)
+                    resolve()
+                })
+                .catch( err => reject(err) )
+            })
+        },
+
         ANSWER_EMAIL_WRITTEN: ({ commit }, { questionkey, writtenResponse }) => {
             return new Promise(function(resolve, reject) {
                 let payload = { questionkey, writtenResponse }

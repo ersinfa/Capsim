@@ -51,8 +51,15 @@ export default {
                         this.$emit('input', editor.getContent());
                     });
 
+                    
+                    editor.on('blur', function() {
+                        var newContent = editor.getContent();
+                    });
+
                     editor.on('Change', (e) => {
                         this.$emit('input', editor.getContent());
+                        var newContent = editor.getContent();
+                        this.$emit('content-updated', newContent);
                     });
 
                     setTimeout( () => editor.setContent(this.value), 300 )

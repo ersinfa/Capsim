@@ -69,6 +69,44 @@ router.post('/written', asyncWrap( async (req, res, next) => {
     
 }))
 
+router.post('/savedraft', asyncWrap( async (req, res, next) => {
+    const writtenAnswer = req.body.writtenResponse
+    const questionkey = req.body.questionkey
+    //Need to find out why sometimes this is an array and sometimes it is a string
+    const stsKey = Array.isArray(req.session.stsKey) ? req.session.stsKey[0] : req.session.stsKey 
+    const getWrittenAnswer = await game.getWrittenDraft(stsKey, questionkey)
+    
+    // Checks if student has already answered this question
+    if(getWrittenAnswer.length == 0){
+        const answer = {FK_StudentToSimKey: stsKey, FK_questionKey: questionkey, writtenResponse: writtenAnswer}
+        Promise.all([ game.setWrittenDraft(answer) ])
+        .then( dataArray => res.status(200).json(dataArray) )
+        .catch( err => res.status(400).json( err ) )
+    }else{
+        const answer = {FK_StudentToSimKey: stsKey, FK_questionKey: questionkey, writtenResponse: writtenAnswer}
+        Promise.all([ game.updateWrittenDraft(answer) ])
+        .then( dataArray => res.status(200).json(dataArray) )
+        .catch( err => res.status(400).json( err ) )
+    }
+    
+}))
+
+router.post('/get_savedraft', asyncWrap( async (req, res, next) => {
+    const questionkey = req.body.questionkey
+    //Need to find out why sometimes this is an array and sometimes it is a string
+    const stsKey = Array.isArray(req.session.stsKey) ? req.session.stsKey[0] : req.session.stsKey 
+    const getWrittenAnswer = await game.getWrittenDraft(stsKey, questionkey)
+    
+    // Checks if student has already answered this question
+    if(getWrittenAnswer.length == 0){
+        const answer = {FK_StudentToSimKey: stsKey, FK_questionKey: questionkey}
+        Promise.all([ game.getWrittenDraft(answer) ])
+        .then( dataArray => res.status(200).json(dataArray) )
+        .catch( err => res.status(400).json( err ) )
+    }
+    
+}))
+
 
 router.post('/update', async (req, res, next) => {
     let answer = [ req.session.stsKey, req.body.questionkey, req.body.oldAnswerkey]
