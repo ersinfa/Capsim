@@ -41,7 +41,7 @@ export default {
             tinymce.init({
                 selector: `#${this.id}`,
 				        skin: false,
-                toolbar: 'undo redo | preview | code | paste | numlist | bulllist | forecolor backcolor | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+                toolbar: 'undo redo | preview | code | paste | numlist | bulllist | forecolor backcolor | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
                 plugins: "code textcolor preview lists paste",
                 init_instance_callback: (editor) => {
 

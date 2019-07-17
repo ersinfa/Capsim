@@ -202,15 +202,15 @@ export default {
 
     emailHeight() {
       
-      // if (this.currentEmail) {
-      //   if (this.isExam) {
-      //     return `${this.windowHeight - 200}px`;
-      //   } else {
-      //     return `${this.$refs.container.offsetHeight - 30}px`;
-      //   }
-      // }
+      if (this.currentEmail) {
+        if (this.isExam) {
+          return `${this.windowHeight - 200}px`;
+        } else {
+          return `${this.$refs.container.offsetHeight - 30}px`;
+        }
+      }
       
-     return '1000px';
+     //return '1000px';
     },
 
     answersToShow(){
