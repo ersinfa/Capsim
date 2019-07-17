@@ -93,7 +93,7 @@
       </div>
 
       <div>
-        <label for="description">Email/Message Body:</label>
+        <label for="description">Email / Message Body :</label>
         <wysiwyg id="description" v-model="question.descriptionTagKey"></wysiwyg>
       </div>
 

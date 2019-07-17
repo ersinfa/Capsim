@@ -91,7 +91,7 @@
                         <template v-else-if="isWrittenResponse">
                           <!-- <textarea v-model="writtenResponse" type="text" placeholder="Enter your response here" class='emailMsgAnswer'></textarea> -->
                           <wysiwyg id="written-response" v-model="writtenResponse" 
-                           v-on:content-updated="saveDraft" :value="draftValue" class='emailMsgAnswer'>TEST message</wysiwyg>
+                           v-on:content-updated="saveDraft" :value="draftValue" class='emailMsgAnswer'></wysiwyg>
                         </template>
                        
                         <template v-if="isSent && answerPicked">
@@ -103,14 +103,14 @@
 
                         <button @click="submitAnswer" class="btn btn-primary mat pull-right"  >
                             <template v-if="$store.state.assessmentTypeKey == 3">
-                                Respond    
+                              Respond
                             </template>
                             <template v-else>
                                 {{ info.respond }}
                             </template>
                         </button> 
                         
-                        <button  @click="saveDraft" class="btn btn-default mat pull-right" id="save-draft" style="margin-right: 10px;"  > 
+                        <button v-if="isWrittenResponse"  @click="saveDraft" class="btn btn-default mat pull-right" id="save-draft" style="margin-right: 10px;"  > 
                             Save Draft
                         </button>
                       </div>
@@ -202,15 +202,15 @@ export default {
 
     emailHeight() {
       
-      if (this.currentEmail) {
-        if (this.isExam) {
-          return `${this.windowHeight - 200}px`;
-        } else {
-          return `${this.$refs.container.offsetHeight - 30}px`;
-        }
-      }
+      // if (this.currentEmail) {
+      //   if (this.isExam) {
+      //     return `${this.windowHeight - 200}px`;
+      //   } else {
+      //     return `${this.$refs.container.offsetHeight - 30}px`;
+      //   }
+      // }
       
-     //return '1000px';
+     return '1000px';
     },
 
     answersToShow(){
@@ -295,6 +295,7 @@ export default {
   methods: {
     saveDraft(){
       const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
+      //console.log(question);
       question.writtenResponse = this.writtenResponse;
       return this.$store.dispatch("email/ANSWER_EMAIL_SAVE_DRAFT", {
           questionkey: this.currentEmail.questionKey,
@@ -311,7 +312,19 @@ export default {
       });
       */
       const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
-      return question.writtenResponse;
+      //console.log(question); 
+
+      if(question.writtenResponse != undefined){
+        return question.writtenResponse;
+      }
+      else if(this.currentEmail.writtenDraftResponse != undefined){
+        return this.currentEmail.writtenDraftResponse;
+      }
+      else{
+        return "";
+      }
+      
+      //return (question.writtenResponse != undefined) ? question.writtenResponse : "";
     },
     clickPrevious() {
       $(`#questionListTable tr:nth-child(${this.$store.state.selectedQuestionID - 1})`).click();
