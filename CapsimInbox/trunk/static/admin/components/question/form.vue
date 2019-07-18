@@ -97,7 +97,6 @@
         <wysiwyg id="description" v-model="question.descriptionTagKey"></wysiwyg>
       </div>
 
-
       <div>
           <br>
           <div v-if='question.questionKey'>
@@ -118,7 +117,6 @@
           </div>
       </div>
 
-
        <div class="form-group mb-20">
         <label class="mr-10" for="important">Smart Threading: </label>
         <switcher class="mt-10" :selected="question.isSmartThreading" v-model="question.isSmartThreading"></switcher>
@@ -130,7 +128,6 @@
         <input class="form-control w-20" type="text" v-model="question.failsafe">
         <p>Enter the question key of the corresponding smart threading question that should trigger this email if all of corresponding questions's answers have been picked.</p>
       </div>
-
 
       <div class="form-group mb-20">
         <!-- <option class="mt-10" :selected="question.isSmartThreading" v-model="question.isSmartThreading"></option> -->

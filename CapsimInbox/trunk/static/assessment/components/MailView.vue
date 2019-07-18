@@ -258,10 +258,7 @@ export default {
     },
 
     emailHeight() {
-<<<<<<< HEAD
-      
-=======
->>>>>>> b915d7aea7c738ea4c637069413ed12f8f5eb403
+
       if (this.currentEmail) {
         if (this.isExam) {
           return `${this.windowHeight - 200}px`;
@@ -269,13 +266,8 @@ export default {
           return `${this.$refs.container.offsetHeight - 30}px`;
         }
       }
-<<<<<<< HEAD
       
      //return '1000px';
-=======
-
-      //return '1000px';
->>>>>>> b915d7aea7c738ea4c637069413ed12f8f5eb403
     },
 
     answersToShow() {

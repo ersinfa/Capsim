@@ -28,23 +28,12 @@ export default {
   mounted() {
     setTimeout(() => this.init(), 200);
   },
-
-<<<<<<< HEAD
-    methods: {
-        init() {
-            tinymce.init({
-                selector: `#${this.id}`,
-				        skin: false,
-                toolbar: 'undo redo | preview | code | paste | numlist | bulllist | forecolor backcolor | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                plugins: "code textcolor preview lists paste",
-                init_instance_callback: (editor) => {
-=======
+  
   beforeDestroy() {
     while (tinymce.editors.length > 0) {
       tinymce.remove(tinymce.editors[0]);
     }
   },
->>>>>>> b915d7aea7c738ea4c637069413ed12f8f5eb403
 
   methods: {
     init() {
