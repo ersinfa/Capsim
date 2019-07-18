@@ -97,6 +97,7 @@
         <wysiwyg id="description" v-model="question.descriptionTagKey"></wysiwyg>
       </div>
 
+
       <div>
           <br>
           <div v-if='question.questionKey'>
@@ -107,6 +108,7 @@
                 <button class="btn mat btn-primary" @click.prevent="addAnswerKey(responseToAdd)">Add</button> 
               </div>
             <br>
+
             <p v-if="answerDependencies && answerDependencies.length > 1" >Existing Answer Keys that will trigger this email/message:</p>
             <div class="form-inline" style="margin-bottom: 10px" v-for='dependency in answerDependencies'>
                 <label style="width: 60px;">{{dependency.FK_answerKey}}</label>
@@ -115,6 +117,7 @@
             </div>
           </div>
       </div>
+
 
        <div class="form-group mb-20">
         <label class="mr-10" for="important">Smart Threading: </label>
@@ -128,10 +131,9 @@
         <p>Enter the question key of the corresponding smart threading question that should trigger this email if all of corresponding questions's answers have been picked.</p>
       </div>
 
+
       <div class="form-group mb-20">
         <!-- <option class="mt-10" :selected="question.isSmartThreading" v-model="question.isSmartThreading"></option> -->
-        
-
         <label for="display-type">Cycle Triggered In:</label>
         <p>Used for Re-entry versions, to schedule questions in certain cycles. If no value is selected, email will be triggered in first cycle.</p>
         <select class="form-control w-10" :selected="question.triggeredInCycle" v-model.number="question.triggeredInCycle">
@@ -155,23 +157,20 @@
 </template>
 <script>
 export default {
-
   name: 'question-form',
-
   props: {
-
     question: {
       type: Object,
+      required: true
+    },
+
+    versionKey: {
       required: true
     },
 
     authors: {
       type: Array,
       require: true
-    },
-
-    versionKey: {
-      required: true
     },
 
     answerDependencies: {
@@ -191,7 +190,6 @@ export default {
   },
 
   computed: {
-
 	  timer: {
 		  get() {
 			  return this.question.timer/60000
@@ -200,11 +198,9 @@ export default {
 			  this.question.timer = val * 60000
 		  }
     }
-
   },
 
   data() {
-
     return {
       authorHasErrors: false,
       responseToAdd: '',
@@ -223,7 +219,6 @@ export default {
     },
 
     createAuthor() {
-
       this.authorHasErrors = !Object.keys(this.author).every( k => this.author[k] !== '' )
 
       if(this.authorHasErrors) return
