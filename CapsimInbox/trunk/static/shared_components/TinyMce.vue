@@ -1,71 +1,69 @@
 <template>
-    <textarea :id="id" :value="value">
-    </textarea>
+  <textarea :id="id" :value="value"></textarea>
 </template>
 
 <script>
-import 'tinymce/themes/modern/theme'
-import "tinymce/plugins/code"
-import "tinymce/plugins/textcolor"
-import "tinymce/plugins/preview"
-import "tinymce/plugins/lists"
-import "tinymce/plugins/paste"
+import "tinymce/themes/modern/theme";
+import "tinymce/plugins/code";
+import "tinymce/plugins/textcolor";
+import "tinymce/plugins/preview";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/paste";
+import "tinymce/plugins/image";
 
 export default {
+  name: "tiny-mce",
 
-    name : 'tiny-mce',
-
-    props : {
-        id: {
-            type: String,
-            default: 'editor'
-        },
-        value: {
-            type: String,
-            required: true
-        }
+  props: {
+    id: {
+      type: String,
+      default: "editor"
     },
-
-    mounted() {
-      setTimeout( () => this.init(), 200 )
-    },
-
-    beforeDestroy() {
-        while (tinymce.editors.length > 0) {
-            tinymce.remove(tinymce.editors[0]);
-        }
-    },
-
-    methods: {
-        init() {
-            tinymce.init({
-                selector: `#${this.id}`,
-				        skin: false,
-                toolbar: 'undo redo | preview | code | paste | numlist | bulllist | forecolor backcolor | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
-                plugins: "code textcolor preview lists paste",
-                init_instance_callback: (editor) => {
-
-                    this.editor = editor
-
-                    editor.on('KeyUp', (e) => {
-                        this.$emit('input', editor.getContent());
-                    });
-
-                    
-                    editor.on('blur', function() {
-                        var newContent = editor.getContent();
-                    });
-
-                    editor.on('Change', (e) => {
-                        this.$emit('input', editor.getContent());
-                        var newContent = editor.getContent();
-                        this.$emit('content-updated', newContent);
-                    });
-
-                    setTimeout( () => editor.setContent(this.value), 300 )
-                }
-            })
-        }
+    value: {
+      type: String,
+      required: true
     }
-}
+  },
+
+  mounted() {
+    setTimeout(() => this.init(), 200);
+  },
+
+  beforeDestroy() {
+    while (tinymce.editors.length > 0) {
+      tinymce.remove(tinymce.editors[0]);
+    }
+  },
+
+  methods: {
+    init() {
+      tinymce.init({
+        selector: `#${this.id}`,
+        skin: false,
+        toolbar:
+          "undo redo | preview | code | paste | numlist | bulllist | forecolor backcolor | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help",
+        plugins: "code textcolor preview lists paste image",
+        init_instance_callback: editor => {
+          this.editor = editor;
+
+          editor.on("KeyUp", e => {
+            this.$emit("input", editor.getContent());
+          });
+
+          editor.on("blur", function() {
+            var newContent = editor.getContent();
+          });
+
+          editor.on("Change", e => {
+            this.$emit("input", editor.getContent());
+            var newContent = editor.getContent();
+            this.$emit("content-updated", newContent);
+          });
+
+          setTimeout(() => editor.setContent(this.value), 300);
+        }
+      });
+    }
+  }
+};
 </script>

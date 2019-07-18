@@ -1,135 +1,192 @@
 <template>
-    <div ref="container" class="mail-view p-15" :class="colClass">
-        <!-- Email here -->
-        <div v-if="currentEmail" :style="{ height: emailHeight, marginRight: emailMarginRight }" style="transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);" ref="email" class="email p-15" >
-            <div class="row">
-                <div class="col-md-12">
-                    <template v-if="isExam == 1">
-                        <h2 class="m-10 text-light">
-                            Question #{{$store.state.selectedQuestionID}}
-                            <br/>
-                            <small>{{currentEmail.competencyName}}</small>
-                        </h2>
-                        <br/>
-                        
-                    </template>
-                    <template v-else>
-                        <h2 class="m-10 text-light">{{ currentEmail.subjectTagKey }}</h2>
-                    </template>
-                </div>
-            </div>
-            <template v-if="isExam !== 1">
-                <div class="media mb-25">
-                
-                    <div class="media-left">
-                        <a href="#">
-                            <authorInitial :author-name="currentEmail.authorNameTagKey"></authorInitial>
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="text-semibold mt-0">{{ currentEmail.authorNameTagKey }}
-                            <br><small class="author-title">{{ currentEmail.authorTitle }}</small>
-                        </h4>
-                        {{ currentEmail.timestamp }}
-                    </div>
-               
-            </div>
-             </template>
-
-             
-            <div @click="openFile(file)" v-for="file in currentEmail.files" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-sm mb-15 mr-15">
-                <span :class="['glyphicon', 'p-5', getFileIcon(file)]"></span>
-                <span>{{ file.displayName }}</span>
-                 <span class="glyphicon glyphicon-triangle-bottom" style="font-size: 0.7em"></span>
-            </div>
-            <div class="row">
-                <div v-html="emailDescription" class="col-md-12 pl-20 pr-20 mb-20">
-                </div>
-            </div>
-            <div v-if="currentEmail.answers.length > 0 || currentEmail.isWrittenResponse == 1" class="row pl-20 pr-20 pb-20">
-                <hr>
-                <div class="col-md-12 well questions mb-0">
-                    <!-- Fix: Repeating code --> 
-                    <template v-if="(isSent ) && !(isExam == 1) && !(isWrittenResponse)">
-                        <b>Me: <template v-for="answer in answerPicked"> {{answer.nameTagKey}}<br/> </template></b>
-                    </template>
-
-                    <template v-else-if="smartAnswer">
-                        <b>Me:  {{ smartAnswer }}<br/></b>
-                    </template>
-
-                    <template v-else-if="isSent  && !(isExam == 1) && isWrittenResponse">
-                        <b>Me:<br><br></b>
-                        <p v-html="currentEmail.writtenResponse"><br/></p>
-                    </template>
-
-                    <template v-else>
-                      <div :class="isWrittenResponse ? 'content-center' : 'col-md-105'">
-                        <!-- Multi answer question -->
-                        <template v-if="currentEmail.FK_questionTypeKey == 2 && !isWrittenResponse"> 
-                          <template v-for="answer in currentEmail.answers">
-                            <div class="radio" :class="{'answer-choice': (isExam == 1)}">
-                              <label :for="`f-option-${answer.answerKey}`">
-                                <input name="answer" :id="`f-option-${answer.answerKey}`" type="checkbox" :value="answer.answerKey" v-model="picked" :disabled="(currentEmail.maxAnswerCount > 1 && currentEmail.maxAnswerCount <= picked.length && !picked.includes(answer.answerKey) )">
-                                {{ answer.nameTagKey }}
-                              </label>
-                            </div>
-                          </template>
-                        </template>
-                        <!-- Single answer question -->
-                        <template v-else-if="currentEmail.FK_questionTypeKey == 1 && !isWrittenResponse">
-                            <template v-for="answer in answersToShow" >
-                                <div class="radio" :class="{'answer-choice': (isExam == 1)}">
-                                    <label :for="`f-option-${answer.answerKey}`">
-                                    <input :name="`answer`" :id="`f-option-${answer.answerKey}`" type="radio" :value="answer.answerKey" v-model="picked">
-                                    {{ answer.nameTagKey }}
-                                    </label>
-                                </div>
-                            </template>
-                        </template>
-                        <!-- Written Response question -->
-                        <template v-else-if="isWrittenResponse">
-                          <!-- <textarea v-model="writtenResponse" type="text" placeholder="Enter your response here" class='emailMsgAnswer'></textarea> -->
-                          <wysiwyg id="written-response" v-model="writtenResponse" 
-                           v-on:content-updated="saveDraft" :value="draftValue" class='emailMsgAnswer'></wysiwyg>
-                        </template>
-                       
-                        <template v-if="isSent && answerPicked">
-                             <b>Saved Answer: <template v-for="answer in answerPicked"> {{ (filterAnswers(answer))}}<br/> </template></b>
-                        </template>
-                      </div>
-
-                      <div class="col-md-12" style="margin-top: 10px" >
-
-                        <button @click="submitAnswer" class="btn btn-primary mat pull-right"  >
-                            <template v-if="$store.state.assessmentTypeKey == 3">
-                              Respond
-                            </template>
-                            <template v-else>
-                                {{ info.respond }}
-                            </template>
-                        </button> 
-                        
-                        <button v-if="isWrittenResponse"  @click="saveDraft" class="btn btn-default mat pull-right" id="save-draft" style="margin-right: 10px;"  > 
-                            Save Draft
-                        </button>
-                      </div>
-                    </template>
-                 
-                </div>
-            </div>
-            <template v-if="isExam == 1">
-                <button class="btn btn-primary pull-left mat" v-if="showPrevious" id="showPrevious" @click="clickPrevious">  Previous</button>
-                <button class="btn btn-primary pull-right mat" v-if="showNext" id="showNext" @click="clickNext">Next</button>
-            </template>
+  <div ref="container" class="mail-view p-15" :class="colClass">
+    <!-- Email here -->
+    <div
+      v-if="currentEmail"
+      :style="{ height: emailHeight, marginRight: emailMarginRight }"
+      style="transition: all 350ms cubic-bezier(0.19, 1, 0.22, 1);"
+      ref="email"
+      class="email p-15"
+    >
+      <div class="row">
+        <div class="col-md-12">
+          <template v-if="isExam == 1">
+            <h2 class="m-10 text-light">
+              Question #{{$store.state.selectedQuestionID}}
+              <br />
+              <small>{{currentEmail.competencyName}}</small>
+            </h2>
+            <br />
+          </template>
+          <template v-else>
+            <h2 class="m-10 text-light">{{ currentEmail.subjectTagKey }}</h2>
+          </template>
         </div>
-        <!-- No email selected -->
-        <div class="empty"></div>
-        
+      </div>
+      <template v-if="isExam !== 1">
+        <div class="media mb-25">
+          <div class="media-left">
+            <a href="#">
+              <authorInitial :author-name="currentEmail.authorNameTagKey"></authorInitial>
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="text-semibold mt-0">
+              {{ currentEmail.authorNameTagKey }}
+              <br />
+              <small class="author-title">{{ currentEmail.authorTitle }}</small>
+            </h4>
+            {{ currentEmail.timestamp }}
+          </div>
+        </div>
+      </template>
+
+      <div
+        @click="openFile(file)"
+        v-for="file in currentEmail.files"
+        data-toggle="modal"
+        data-target="#myModal"
+        class="btn btn-default btn-sm mb-15 mr-15"
+      >
+        <span :class="['glyphicon', 'p-5', getFileIcon(file)]"></span>
+        <span>{{ file.displayName }}</span>
+        <span class="glyphicon glyphicon-triangle-bottom" style="font-size: 0.7em"></span>
+      </div>
+      <div class="row">
+        <div v-html="emailDescription" class="col-md-12 pl-20 pr-20 mb-20"></div>
+      </div>
+      <div
+        v-if="currentEmail.answers.length > 0 || currentEmail.isWrittenResponse == 1"
+        class="row pl-20 pr-20 pb-20"
+      >
+        <hr />
+        <div class="col-md-12 well questions mb-0">
+          <!-- Fix: Repeating code -->
+          <template v-if="(isSent ) && !(isExam == 1) && !(isWrittenResponse)">
+            <b>
+              Me:
+              <template v-for="answer in answerPicked">
+                {{answer.nameTagKey}}
+                <br />
+              </template>
+            </b>
+          </template>
+
+          <template v-else-if="smartAnswer">
+            <b>
+              Me: {{ smartAnswer }}
+              <br />
+            </b>
+          </template>
+
+          <template v-else-if="isSent  && !(isExam == 1) && isWrittenResponse">
+            <b>
+              Me:
+              <br />
+              <br />
+            </b>
+            <p v-html="currentEmail.writtenResponse">
+              <br />
+            </p>
+          </template>
+
+          <template v-else>
+            <div :class="isWrittenResponse ? 'content-center' : 'col-md-105'">
+              <!-- Multi answer question -->
+              <template v-if="currentEmail.FK_questionTypeKey == 2 && !isWrittenResponse">
+                <template v-for="answer in currentEmail.answers">
+                  <div class="radio" :class="{'answer-choice': (isExam == 1)}">
+                    <label :for="`f-option-${answer.answerKey}`">
+                      <input
+                        name="answer"
+                        :id="`f-option-${answer.answerKey}`"
+                        type="checkbox"
+                        :value="answer.answerKey"
+                        v-model="picked"
+                        :disabled="(currentEmail.maxAnswerCount > 1 && currentEmail.maxAnswerCount <= picked.length && !picked.includes(answer.answerKey) )"
+                      />
+                      {{ answer.nameTagKey }}
+                    </label>
+                  </div>
+                </template>
+              </template>
+              <!-- Single answer question -->
+              <template v-else-if="currentEmail.FK_questionTypeKey == 1 && !isWrittenResponse">
+                <template v-for="answer in answersToShow">
+                  <div class="radio" :class="{'answer-choice': (isExam == 1)}">
+                    <label :for="`f-option-${answer.answerKey}`">
+                      <input
+                        :name="`answer`"
+                        :id="`f-option-${answer.answerKey}`"
+                        type="radio"
+                        :value="answer.answerKey"
+                        v-model="picked"
+                      />
+                      {{ answer.nameTagKey }}
+                    </label>
+                  </div>
+                </template>
+              </template>
+              <!-- Written Response question -->
+              <template v-else-if="isWrittenResponse">
+                <!-- <textarea v-model="writtenResponse" type="text" placeholder="Enter your response here" class='emailMsgAnswer'></textarea> -->
+                <wysiwyg
+                  id="written-response"
+                  v-model="writtenResponse"
+                  v-on:content-updated="saveDraft"
+                  :value="draftValue"
+                  class="emailMsgAnswer"
+                ></wysiwyg>
+              </template>
+
+              <template v-if="isSent && answerPicked">
+                <b>
+                  Saved Answer:
+                  <template v-for="answer in answerPicked">
+                    {{ (filterAnswers(answer))}}
+                    <br />
+                  </template>
+                </b>
+              </template>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 10px">
+              <button @click="submitAnswer" class="btn btn-primary mat pull-right">
+                <template v-if="$store.state.assessmentTypeKey == 3">Respond</template>
+                <template v-else>{{ info.respond }}</template>
+              </button>
+
+              <button
+                v-if="isWrittenResponse"
+                @click="saveDraft"
+                class="btn btn-default mat pull-right"
+                id="save-draft"
+                style="margin-right: 10px;"
+              >Save Draft</button>
+            </div>
+          </template>
+        </div>
+      </div>
+      <template v-if="isExam == 1">
+        <button
+          class="btn btn-primary pull-left mat"
+          v-if="showPrevious"
+          id="showPrevious"
+          @click="clickPrevious"
+        >Previous</button>
+        <button
+          class="btn btn-primary pull-right mat"
+          v-if="showNext"
+          id="showNext"
+          @click="clickNext"
+        >Next</button>
+      </template>
     </div>
+    <!-- No email selected -->
+    <div class="empty"></div>
+  </div>
 </template> 
 <script>
-
 export default {
   name: "mailView",
 
@@ -201,33 +258,34 @@ export default {
     },
 
     emailHeight() {
-      
-      // if (this.currentEmail) {
-      //   if (this.isExam) {
-      //     return `${this.windowHeight - 200}px`;
-      //   } else {
-      //     return `${this.$refs.container.offsetHeight - 30}px`;
-      //   }
-      // }
-      
-     return '1000px';
+      if (this.currentEmail) {
+        if (this.isExam) {
+          return `${this.windowHeight - 200}px`;
+        } else {
+          return `${this.$refs.container.offsetHeight - 30}px`;
+        }
+      }
+
+      //return '1000px';
     },
 
-    answersToShow(){
-      let answersToShow = this.currentEmail.answers
-      if(this.currentEmail.isSmartThreading == 1){
-          let answeredEmailKeyArr = this.$store.state.selectedSmartThreadingAnswers
-          let newArr = answersToShow.filter(e => answeredEmailKeyArr.indexOf(e.answerKey) == -1 )
-          return newArr
+    answersToShow() {
+      let answersToShow = this.currentEmail.answers;
+      if (this.currentEmail.isSmartThreading == 1) {
+        let answeredEmailKeyArr = this.$store.state
+          .selectedSmartThreadingAnswers;
+        let newArr = answersToShow.filter(
+          e => answeredEmailKeyArr.indexOf(e.answerKey) == -1
+        );
+        return newArr;
       } else {
-        return answersToShow
+        return answersToShow;
       }
-      
     },
 
     isWrittenResponse() {
-      if(this.currentEmail.isWrittenResponse == 1){
-       this.writtenResponse = this.getDraftData();
+      if (this.currentEmail.isWrittenResponse == 1) {
+        this.writtenResponse = this.getDraftData();
       }
       return this.currentEmail.isWrittenResponse == 1;
     },
@@ -287,23 +345,27 @@ export default {
     },
 
     showNext() {
-      return (this.$store.state.selectedQuestionID < this.$store.getters["email/activeEmails"].length);
+      return (
+        this.$store.state.selectedQuestionID <
+        this.$store.getters["email/activeEmails"].length
+      );
     }
-
   },
 
   methods: {
-    saveDraft(){
-      const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
+    saveDraft() {
+      const question = this.$store.state.emails.find(
+        question => question.questionKey === this.currentEmail.questionKey
+      );
       //console.log(question);
       question.writtenResponse = this.writtenResponse;
       return this.$store.dispatch("email/ANSWER_EMAIL_SAVE_DRAFT", {
-          questionkey: this.currentEmail.questionKey,
-          writtenResponse: this.writtenResponse
-      })
-      console.log('Draft saved..');
+        questionkey: this.currentEmail.questionKey,
+        writtenResponse: this.writtenResponse
+      });
+      console.log("Draft saved..");
     },
-    getDraftData(){
+    getDraftData() {
       /*
       let payload = { questionkey: this.currentEmail.questionKey }
       $.post({ url: '/capsiminbox/webapp/get_savedraft', dataType: 'json', data: payload })
@@ -311,27 +373,35 @@ export default {
         console.log(data);
       });
       */
-      const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
-      //console.log(question); 
 
-      if(question.writtenResponse != undefined){
+      const question = this.$store.state.emails.find(
+        question => question.questionKey === this.currentEmail.questionKey
+      );
+
+      //console.log(question);
+
+      if (question.writtenResponse != undefined) {
         return question.writtenResponse;
-      }
-      else if(this.currentEmail.writtenDraftResponse != undefined){
+      } else if (this.currentEmail.writtenDraftResponse != undefined) {
         return this.currentEmail.writtenDraftResponse;
-      }
-      else{
+      } else {
         return "";
       }
-      
       //return (question.writtenResponse != undefined) ? question.writtenResponse : "";
     },
+
     clickPrevious() {
-      $(`#questionListTable tr:nth-child(${this.$store.state.selectedQuestionID - 1})`).click();
+      $(
+        `#questionListTable tr:nth-child(${this.$store.state
+          .selectedQuestionID - 1})`
+      ).click();
     },
 
     clickNext() {
-      $(`#questionListTable tr:nth-child(${this.$store.state.selectedQuestionID + 1})`).click();
+      $(
+        `#questionListTable tr:nth-child(${this.$store.state
+          .selectedQuestionID + 1})`
+      ).click();
     },
 
     formatDate(match, format) {
@@ -360,6 +430,7 @@ export default {
           }
         }
       }
+
       //this.writtenResponse = "";
       this.initial = true;
       this.showError = false;
@@ -379,63 +450,72 @@ export default {
       if (!this.currentEmail.isWrittenResponse) {
         if (!this.validate()) return;
       }
-
-        // Starts Promise chain
-        Promise.resolve()
+      // Starts Promise chain
+      Promise.resolve()
         // Clears answers before inserting new answers
-        .then( () => {
-            if (this.currentEmail.isSent){
-                const answerKeys = this.answerPicked.map(x => x.answerKey);
-                return this.$store.dispatch("email/CLEAR_EMAIL", {
-                    questionkey: this.currentEmail.questionKey,
-                    oldAnswerkey: answerKeys
-                })
-            }
+        .then(() => {
+          if (this.currentEmail.isSent) {
+            const answerKeys = this.answerPicked.map(x => x.answerKey);
+            return this.$store.dispatch("email/CLEAR_EMAIL", {
+              questionkey: this.currentEmail.questionKey,
+              oldAnswerkey: answerKeys
+            });
+          }
         })
         // Inserting answers
         .then(() => {
-            if (this.currentEmail.isWrittenResponse) {
-                return this.$store.dispatch("email/ANSWER_EMAIL_WRITTEN", {
-                    questionkey: this.currentEmail.questionKey,
-                    writtenResponse: this.writtenResponse
-                })
-            } else {
-              if(!this.isExam){
-                this.$store.commit('SET_STATE', {data: {recentlySelectedAnswerKey: this.picked}})
-              }
-                
-                if( this.currentEmail.isSmartThreading == 1){
-                  let answersArr =  this.$store.state.selectedSmartThreadingAnswers
-                  answersArr.push(this.picked)
-                  this.$store.commit('SET_STATE', {data: {selectedSmartThreadingAnswers: answersArr }})
-                }
-                return this.$store.dispatch("email/ANSWER_EMAIL", {
-                questionkey: this.currentEmail.questionKey,
-                answerkey: this.picked,
-                isSmartThreading: this.currentEmail.isSmartThreading
-                });
+          if (this.currentEmail.isWrittenResponse) {
+            return this.$store.dispatch("email/ANSWER_EMAIL_WRITTEN", {
+              questionkey: this.currentEmail.questionKey,
+              writtenResponse: this.writtenResponse
+            });
+          } else {
+            if (!this.isExam) {
+              this.$store.commit("SET_STATE", {
+                data: { recentlySelectedAnswerKey: this.picked }
+              });
             }
+
+            if (this.currentEmail.isSmartThreading == 1) {
+              let answersArr = this.$store.state.selectedSmartThreadingAnswers;
+              answersArr.push(this.picked);
+              this.$store.commit("SET_STATE", {
+                data: { selectedSmartThreadingAnswers: answersArr }
+              });
+            }
+            return this.$store.dispatch("email/ANSWER_EMAIL", {
+              questionkey: this.currentEmail.questionKey,
+              answerkey: this.picked,
+              isSmartThreading: this.currentEmail.isSmartThreading
+            });
+          }
         })
         // Updates store with answers selection
         .then(() => {
-            if (!this.currentEmail.isWrittenResponse) {
-                const question = this.$store.state.emails.find(question => question.questionKey === this.currentEmail.questionKey);
-                let answers =  typeof this.picked == "object" ? this.picked : [this.picked];
-                let questionAnswers = question.answers.filter(answer => answers.includes(answer.answerKey));
-                let timeImpact = 0;
-                questionAnswers.forEach(answer => { timeImpact += answer.timeImpact; });
-                if (timeImpact != 0) this.$store.commit("time/UPDATE_DEADLINE", timeImpact);
-                if(this.currentEmail.isSmartThreading){
-                  this.smartAnswer = questionAnswers[0].nameTagKey
-                }
+          if (!this.currentEmail.isWrittenResponse) {
+            const question = this.$store.state.emails.find(
+              question => question.questionKey === this.currentEmail.questionKey
+            );
+            let answers =
+              typeof this.picked == "object" ? this.picked : [this.picked];
+            let questionAnswers = question.answers.filter(answer =>
+              answers.includes(answer.answerKey)
+            );
+            let timeImpact = 0;
+            questionAnswers.forEach(answer => {
+              timeImpact += answer.timeImpact;
+            });
+            if (timeImpact != 0)
+              this.$store.commit("time/UPDATE_DEADLINE", timeImpact);
+            if (this.currentEmail.isSmartThreading) {
+              this.smartAnswer = questionAnswers[0].nameTagKey;
             }
-            //need to manually reset this component because the questionKey won't change if you return to same smart threadaing question
-          
+          }
+          //need to manually reset this component because the questionKey won't change if you return to same smart threadaing question
         })
         .catch(error => {
-            this.$store.dispatch("Errors/responseError", error);
+          this.$store.dispatch("Errors/responseError", error);
         });
-        
     },
 
     scrollTop() {
