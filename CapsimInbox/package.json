@@ -86,7 +86,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "highcharts": "^5.0.10",
+    "highcharts": "^9.0.0",
     "highcharts-solid-gauge": "^0.1.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
