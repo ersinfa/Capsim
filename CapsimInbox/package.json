@@ -95,7 +95,7 @@
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
-    "tinymce": "^4.7.2",
+    "tinymce": "^5.10.7",
     "uglify-js": "^2.5.0",
     "vue": "^2.3.2",
     "vue-bootstrap-datetimepicker": "^4.1.2",
