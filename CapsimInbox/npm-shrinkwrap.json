@@ -5272,9 +5272,9 @@
       "integrity": "sha1-SoWtZYgfYoV/xwr3F0oRhNzM4ys="
     },
     "highcharts": {
-      "version": "5.0.14",
-      "resolved": "https://registry.npmjs.org/highcharts/-/highcharts-5.0.14.tgz",
-      "integrity": "sha1-DvFMyp8TRUCFaLUz2uFHiVDZaBA=",
+      "version": "9.0.0",
+      "resolved": "https://registry.npmjs.org/highcharts/-/highcharts-9.0.0.tgz",
+      "integrity": "sha512-MJCtidFytGSQvsV3OEM+vFTLpjUcp7jmFpLn8h3oL4WKp0gxUOQg6Nw00sqMWGdiadst0gOZO4804zynTcYjZQ==",
       "dev": true
     },
     "highcharts-solid-gauge": {
