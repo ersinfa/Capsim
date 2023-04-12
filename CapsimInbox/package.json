@@ -92,7 +92,7 @@
     "lodash": "^4.17.4",
     "lodash.debounce": "^4.0.8",
     "lodash.delay": "^4.1.1",
-    "node-sass": "^4.5.2",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
     "tinymce": "^5.10.7",
